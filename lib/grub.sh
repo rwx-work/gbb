@@ -36,9 +36,9 @@ function grub_make_image {
 local architecture="${1}"
 local file="${2}"
 shift 2
-local modules=("${MODULES[@]}")
+local modules=("${GRUB_IMAGE_MODULES[@]}")
 if [ "${architecture}" == 'i386-pc' ]; then
-    modules=("${modules[@]}" "${MODULES_BIOS[@]}")
+    modules=("${modules[@]}" "${GRUB_IMAGE_BIOS_MODULES[@]}")
 fi
 grub-mkimage \
 --compress "${GRUB_IMAGE_COMPRESSION}" \

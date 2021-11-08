@@ -46,5 +46,4 @@ grub-mkimage \
 --format "${architecture}" \
 --output "${file}" \
 "${modules[@]}"
-
 }

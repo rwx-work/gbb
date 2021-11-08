@@ -9,6 +9,12 @@ remove \
 "${GRUBASH_BIOS_DIRECTORY}"
 }
 
+function grubash_get_uuid {
+local directory="${1}"
+local mount_point="$(stat --format '%m' "${directory}")"
+echo "$(findmnt --noheadings --output 'UUID' "${mount_point}")"
+}
+
 function grubash_display_usage {
 # architectures
 display_usage \

@@ -9,3 +9,20 @@ GRUB_IMAGE_ARCHIVE="${GRUB_IMAGE_ROOT}.tar"
 
 GRUB_BIOS_SETUP="${GRUB_BIOS}/grub-bios-setup"
 GRUB_IMAGE_FILE="${GRUB_IMAGE_DIRECTORY}/grub.cfg"
+
+function grub_make_image {
+local architecture="${1}"
+local file="${2}"
+shift 2
+local modules=("${MODULES[@]}")
+if [ "${architecture}" == 'i386-pc' ]; then
+    modules=("${modules[@]}" "${MODULES_BIOS[@]}")
+fi
+grub-mkimage \
+--compress "${GRUB_IMAGE_COMPRESSION}" \
+--memdisk "${GRUB_IMAGE_ARCHIVE}" \
+--format "${architecture}" \
+--output "${file}" \
+"${modules[@]}"
+
+}

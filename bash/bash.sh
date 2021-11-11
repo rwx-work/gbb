@@ -24,22 +24,16 @@ du \
 }
 
 function bash_get_directory_mountpoint {
-local directory="${1}"
 stat \
 --format '%m' \
-"${directory}"
+"${1}"
 }
 
-function bash_get_directory_uuid {
-local directory="${1}"
-local mount_point
-# get mount point from directory
-mount_point="$(stat --format '%m' "${directory}")"
-# get uuid from mount point
+function bash_get_mountpoint_uuid {
 findmnt \
 --noheadings \
 --output 'UUID' \
-"${mount_point}"
+"${1}"
 }
 
 function bash_make_directory {

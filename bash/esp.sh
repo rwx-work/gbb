@@ -1,3 +1,7 @@
+ESP_EFI_ROOT='efi'
+ESP_EFI_DIRECTORY="${ESP_EFI_ROOT}/boot"
+ESP_EFI_FILE="${ESP_EFI_DIRECTORY}/bootx64.efi"
+
 GRUBASH_BIOS_DIRECTORY='bios'
 
 GRUBASH_BIOS_IMAGE="${GRUBASH_BIOS_DIRECTORY}/core.img"
@@ -5,20 +9,21 @@ GRUBASH_BIOS_SETUP="${GRUBASH_BIOS_DIRECTORY}/setup"
 
 function esp_build {
 local root="${1}"
+cd "${root}"
 
 bash_remove \
-"${EFI_ROOT}" \
+"${ESP_EFI_ROOT}" \
 "${GRUBASH_BIOS_DIRECTORY}"
 
 grub_make_memdisk "${UUID_ESP}"
 
 # 2 efi
 
-bash_make_directory "${EFI_DIRECTORY}"
+bash_make_directory "${ESP_EFI_DIRECTORY}"
 
 grub_make_image \
 'x86_64-efi' \
-"${EFI_FILE}"
+"${ESP_EFI_FILE}"
 
 # 2b bios
 
@@ -53,7 +58,7 @@ local root="${1}"
 # architectures
 bash_display_usage \
 "${GRUBASH_BIOS_DIRECTORY}" \
-"${EFI_ROOT}"
+"${ESP_EFI_ROOT}"
 # root
 bash_display_usage
 }

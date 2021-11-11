@@ -1,5 +1,0 @@
-EFI_ROOT='efi'
-
-EFI_DIRECTORY="${EFI_ROOT}/boot"
-
-EFI_FILE="${EFI_DIRECTORY}/bootx64.efi"

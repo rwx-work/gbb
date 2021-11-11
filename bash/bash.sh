@@ -23,6 +23,13 @@ du \
 "${@}"
 }
 
+function bash_get_directory_mountpoint {
+local directory="${1}"
+stat \
+--format '%m' \
+"${directory}"
+}
+
 function bash_get_directory_uuid {
 local directory="${1}"
 local mount_point

@@ -26,6 +26,7 @@ GRUB_IMAGE_COMPRESSION='xz'
 
 GRUB_ROOT='/usr/lib/grub'
 GRUB_BIOS="${GRUB_ROOT}/i386-pc"
+GRUB_BIOS_BOOT="${GRUB_BIOS}/boot.img"
 GRUB_BIOS_SETUP="${GRUB_BIOS}/grub-bios-setup"
 
 GRUB_IMAGE_ROOT='boot'

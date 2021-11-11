@@ -2,10 +2,10 @@ ESP_EFI_ROOT='efi'
 ESP_EFI_DIRECTORY="${ESP_EFI_ROOT}/boot"
 ESP_EFI_FILE="${ESP_EFI_DIRECTORY}/bootx64.efi"
 
-GRUBASH_BIOS_DIRECTORY='bios'
+ESP_BIOS_ROOT='bios'
+ESP_BIOS_IMAGE="${ESP_BIOS_ROOT}/core.img"
 
-GRUBASH_BIOS_IMAGE="${GRUBASH_BIOS_DIRECTORY}/core.img"
-GRUBASH_BIOS_SETUP="${GRUBASH_BIOS_DIRECTORY}/setup"
+GRUBASH_BIOS_SETUP="${ESP_BIOS_ROOT}/setup"
 
 function esp_build {
 local root="${1}"
@@ -13,7 +13,7 @@ cd "${root}"
 
 bash_remove \
 "${ESP_EFI_ROOT}" \
-"${GRUBASH_BIOS_DIRECTORY}"
+"${ESP_BIOS_ROOT}"
 
 grub_make_memdisk "${UUID_ESP}"
 
@@ -27,17 +27,17 @@ grub_make_image \
 
 # 2b bios
 
-bash_make_directory "${GRUBASH_BIOS_DIRECTORY}"
+bash_make_directory "${ESP_BIOS_ROOT}"
 
 # TODO explain why local copy
 cp \
-"${GRUB_BIOS}/boot.img" \
-"${GRUBASH_BIOS_DIRECTORY}"
+"${GRUB_BIOS_BOOT}" \
+"${ESP_BIOS_ROOT}"
 
 # make image file
 grub_make_image \
 'i386-pc' \
-"${GRUBASH_BIOS_IMAGE}"
+"${ESP_BIOS_IMAGE}"
 
 # TODO explain why absoulte path
 echo -n "\
@@ -57,7 +57,7 @@ function esp_display_usage {
 local root="${1}"
 # architectures
 bash_display_usage \
-"${GRUBASH_BIOS_DIRECTORY}" \
+"${ESP_BIOS_ROOT}" \
 "${ESP_EFI_ROOT}"
 # root
 bash_display_usage

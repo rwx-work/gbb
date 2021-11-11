@@ -23,15 +23,16 @@ GRUB_IMAGE_BIOS_MODULES=(
 
 # TODO explain why constant
 GRUB_IMAGE_COMPRESSION='xz'
-GRUB_DIRECTORY='/usr/lib/grub'
-GRUB_IMAGE_ROOT='boot'
 
-GRUB_BIOS="${GRUB_DIRECTORY}/i386-pc"
-GRUB_IMAGE_DIRECTORY="${GRUB_IMAGE_ROOT}/grub"
-GRUB_IMAGE_ARCHIVE="${GRUB_IMAGE_ROOT}.tar"
-
+GRUB_ROOT='/usr/lib/grub'
+GRUB_BIOS="${GRUB_ROOT}/i386-pc"
 GRUB_BIOS_SETUP="${GRUB_BIOS}/grub-bios-setup"
+
+GRUB_IMAGE_ROOT='boot'
+GRUB_IMAGE_DIRECTORY="${GRUB_IMAGE_ROOT}/grub"
 GRUB_IMAGE_FILE="${GRUB_IMAGE_DIRECTORY}/grub.cfg"
+
+GRUB_IMAGE_ARCHIVE="${GRUB_IMAGE_ROOT}.tar"
 
 function grub_make_memdisk {
 local esp_uuid="${1}"
@@ -40,7 +41,8 @@ remove "${GRUB_IMAGE_ROOT}"
 make_directory "${GRUB_IMAGE_DIRECTORY}"
 
 echo -n "\
-search --set root --fs-uuid ${esp_uuid}
+export ESP_UUID=${esp_uuid}
+search --set root --fs-uuid \${ESP_UUID}
 unset prefix
 pager=1
 normal

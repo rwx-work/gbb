@@ -11,11 +11,11 @@ bash_remove \
 
 function grubash_display_usage {
 # architectures
-display_usage \
+bash_display_usage \
 "${GRUBASH_BIOS_DIRECTORY}" \
 "${EFI_ROOT}"
 # root
-display_usage
+bash_display_usage
 }
 
 function grubash_clean {

@@ -16,7 +16,7 @@ if ! eval "${BASH_ACTION}" 2> /dev/null; then
 fi
 }
 
-function display_usage {
+function bash_display_usage {
 du \
 --human-readable \
 --summarize \

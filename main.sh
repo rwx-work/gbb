@@ -15,7 +15,7 @@ eval "${BASH_ROOT}"
 
 # import bash modules
 directory="${BASH_ROOT}/bash"
-readarray -t modules <<< "$(ls "${directory}")"
+readarray -t modules <<< "$(ls -1 "${directory}")"
 for module in "${modules[@]}"; do
     source "${directory}/${module}"
 done

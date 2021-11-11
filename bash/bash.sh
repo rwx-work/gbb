@@ -35,7 +35,7 @@ findmnt \
 "${mount_point}"
 }
 
-function make_directory {
+function bash_make_directory {
 mkdir \
 --parents \
 "${@}"

@@ -38,7 +38,7 @@ function grub_make_memdisk {
 local esp_uuid="${1}"
 
 remove "${GRUB_IMAGE_ROOT}"
-make_directory "${GRUB_IMAGE_DIRECTORY}"
+bash_make_directory "${GRUB_IMAGE_DIRECTORY}"
 
 echo -n "\
 export ESP_UUID=${esp_uuid}

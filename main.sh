@@ -25,7 +25,7 @@ BASH_ACTION="${1}"
 BASH_ACTION_PREFIX='bash_action_'
 BASH_ACTIONS="$(\
 grep "function ${BASH_ACTION_PREFIX}" "${BASH_FILE}" \
-| awk '{print $2}' \
+| awk "{gsub(\"^${BASH_ACTION_PREFIX}\",\"\",\$2);print \$2}" \
 )"
 
 

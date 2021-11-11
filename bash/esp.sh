@@ -11,7 +11,7 @@ bash_remove \
 "${GRUBASH_BIOS_DIRECTORY}"
 }
 
-function grubash_display_usage {
+function esp_display_usage {
 # architectures
 bash_display_usage \
 "${GRUBASH_BIOS_DIRECTORY}" \

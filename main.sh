@@ -70,7 +70,7 @@ bash_action_display
 }
 
 function bash_action_display {
-grubash_display_usage
+esp_display_usage
 }
 
 # TODO implement default action

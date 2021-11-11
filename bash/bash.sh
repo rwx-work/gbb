@@ -1,11 +1,3 @@
-BASH_ACTION="${1}"
-BASH_ACTION_FUNCTION='function bash_action_'
-
-BASH_ACTIONS="$(\
-grep "${BASH_FUNCTION}" "${BASH_FILE}" \
-| awk '{print $2}' \
-)"
-
 function bash_display_usage {
 du \
 --human-readable \

@@ -1,3 +1,26 @@
+GRUB_IMAGE_MODULES=(
+'memdisk' 'tar'
+'search'
+'part_gpt' 'part_msdos'
+'lvm' 'mdraid1x'
+'btrfs' 'ext2' 'iso9660' 'udf'
+'exfat' 'fat' 'hfs' 'hfspluscomp' 'ntfscomp'
+'linux' 'loopback' 'squash4'
+#
+'at_keyboard' 'keylayouts' 'keystatus' 'read'
+'halt' 'reboot'
+'all_video' 'gfxterm_background' 'jpeg' 'png' 'tga'
+#
+'date' 'echo' 'eval' 'help' 'sleep' 'test' 'true'
+'cpuid' 'lspci' 'videoinfo'
+'cat' 'configfile' 'hashsum' 'loadenv' 'progress' 'testspeed'
+'gcry_sha256' 'gcry_sha512'
+)
+GRUB_IMAGE_BIOS_MODULES=(
+'biosdisk'
+'ntldr'
+)
+
 # TODO explain why constant
 GRUB_IMAGE_COMPRESSION='xz'
 GRUB_DIRECTORY='/usr/lib/grub'

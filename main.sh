@@ -35,7 +35,7 @@ bash_action_display
 }
 
 function bash_action_display {
-esp_display_usage
+esp_display_usage "${ESP_ROOT}"
 }
 
 # TODO parse argument

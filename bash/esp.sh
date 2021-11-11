@@ -49,6 +49,7 @@ bash_remove \
 }
 
 function esp_display_usage {
+local root="${1}"
 # architectures
 bash_display_usage \
 "${GRUBASH_BIOS_DIRECTORY}" \

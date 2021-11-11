@@ -21,7 +21,7 @@ for module in "${modules[@]}"; do
 done
 unset directory module modules
 
-function build {
+function bash_action_build {
 grubash_wipe
 grub_make_memdisk "${UUID_ESP}"
 
@@ -58,14 +58,24 @@ ${GRUB_BIOS_SETUP} \\
 chmod +x "${GRUBASH_BIOS_SETUP}"
 
 grubash_clean
-display
+bash_action_display
 }
 
-function display {
+function bash_action_display {
 grubash_display_usage
 }
 
-mp="$(bash_get_directory_mountpoint "${PWD}")"
+# TODO implement default action
+function bash_parse_arguments {
+local action
+if ! eval "bash_action_${BASH_ACTION}" 2> /dev/null; then
+    for action in "${BASH_ACTIONS[@]}"; do
+        echo "${action}"
+    done
+fi
+}
+
+mp="$(bash_get_directory_mountpoint "${ESP_ROOT}")"
 bash_get_mountpoint_uuid "${mp}"
 
-bash_parse
+bash_parse_arguments

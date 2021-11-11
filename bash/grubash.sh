@@ -4,7 +4,7 @@ GRUBASH_BIOS_IMAGE="${GRUBASH_BIOS_DIRECTORY}/core.img"
 GRUBASH_BIOS_SETUP="${GRUBASH_BIOS_DIRECTORY}/setup"
 
 function grubash_wipe {
-remove \
+bash_remove \
 "${EFI_ROOT}" \
 "${GRUBASH_BIOS_DIRECTORY}"
 }
@@ -19,6 +19,6 @@ display_usage
 }
 
 function grubash_clean {
-remove \
+bash_remove \
 "${GRUB_IMAGE_ARCHIVE}"
 }

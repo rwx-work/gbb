@@ -41,7 +41,7 @@ mkdir \
 "${@}"
 }
 
-function remove {
+function bash_remove {
 rm \
 --force \
 --recursive \

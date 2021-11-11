@@ -37,7 +37,7 @@ GRUB_IMAGE_ARCHIVE="${GRUB_IMAGE_ROOT}.tar"
 function grub_make_memdisk {
 local esp_uuid="${1}"
 
-remove "${GRUB_IMAGE_ROOT}"
+bash_remove "${GRUB_IMAGE_ROOT}"
 bash_make_directory "${GRUB_IMAGE_DIRECTORY}"
 
 echo -n "\
@@ -54,7 +54,7 @@ tar \
 --file "${GRUB_IMAGE_ARCHIVE}" \
 "${GRUB_IMAGE_ROOT}"
 
-remove "${GRUB_IMAGE_ROOT}"
+bash_remove "${GRUB_IMAGE_ROOT}"
 }
 
 function grub_make_image {

@@ -23,6 +23,18 @@ du \
 "${@}"
 }
 
+function bash_get_directory_uuid {
+local directory="${1}"
+local mount_point
+# get mount point from directory
+mount_point="$(stat --format '%m' "${directory}")"
+# get uuid from mount point
+findmnt \
+--noheadings \
+--output 'UUID' \
+"${mount_point}"
+}
+
 function make_directory {
 mkdir \
 --parents \

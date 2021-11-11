@@ -30,7 +30,7 @@ grep "function ${BASH_ACTION_PREFIX}" "${BASH_FILE}" \
 
 
 function bash_action_build {
-esp_build
+esp_build "${ESP_ROOT}"
 bash_action_display
 }
 
@@ -38,6 +38,8 @@ function bash_action_display {
 esp_display_usage
 }
 
+# TODO parse argument
+ESP_ROOT="${PWD}"
 # TODO implement default action
 function bash_parse_arguments {
 local action

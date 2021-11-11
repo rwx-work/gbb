@@ -1,11 +1,11 @@
-ESP_ROOT="${PWD}"
-
 GRUBASH_BIOS_DIRECTORY='bios'
 
 GRUBASH_BIOS_IMAGE="${GRUBASH_BIOS_DIRECTORY}/core.img"
 GRUBASH_BIOS_SETUP="${GRUBASH_BIOS_DIRECTORY}/setup"
 
 function esp_build {
+local root="${1}"
+
 bash_remove \
 "${EFI_ROOT}" \
 "${GRUBASH_BIOS_DIRECTORY}"

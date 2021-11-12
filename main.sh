@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
-# TODO explain why eval
+
 # TODO explain
-BASH_FILE="$(realpath "${BASH_SOURCE[0]}")"
+BASH_FILE="$(realpath "${BASH_SOURCE}")"
 # TODO explain
 BASH_ROOT="$(dirname "${BASH_FILE}")"
 
@@ -13,25 +13,6 @@ for module in "${modules[@]}"; do
 done
 unset directory module modules
 
-# actions
-
-function bash_action_build {
-esp_build "${ESP_ROOT}"
-bash_action_display
-}
-
-function bash_action_display {
-esp_display_usage "${ESP_ROOT}"
-}
-
-function bash_action_setup_bios {
-esp_setup_bios "${ESP_ROOT}"
-}
-
-function bash_action_virtualize {
-vm_virtualize "${ESP_ROOT}"
-}
-
-# parse
+# parse arguments
 
 arg_parse "${@}"

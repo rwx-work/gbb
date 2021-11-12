@@ -1,4 +1,25 @@
-ARG_ACTION_PREFIX='bash_action_'
+ARG_ACTION_PREFIX='arg_action_'
+
+# actions
+
+function arg_action_build {
+esp_build "${ESP_ROOT}"
+arg_action_display
+}
+
+function arg_action_display {
+esp_display_usage "${ESP_ROOT}"
+}
+
+function arg_action_setup_bios {
+esp_setup_bios "${ESP_ROOT}"
+}
+
+function arg_action_virtualize {
+vm_virtualize "${ESP_ROOT}"
+}
+
+# parsing
 
 function arg_parse {
 local positional_arguments=()
@@ -33,7 +54,7 @@ if [ "${action}" ]; then
 else
     # TODO manipulate strings without awk
     actions="$(\
-grep "function ${ARG_ACTION_PREFIX}" "${BASH_FILE}" \
+grep "function ${ARG_ACTION_PREFIX}" "${BASH_SOURCE}" \
 | awk "{gsub(\"^${ARG_ACTION_PREFIX}\",\"\",\$2);print \$2}" \
 )"
     for action in "${actions[@]}"; do

@@ -11,6 +11,10 @@ function arg_action_display {
 esp_display_usage "${ESP_ROOT}"
 }
 
+function arg_action_lint {
+bash_check_shell "${MODULES[@]}"
+}
+
 function arg_action_setup_bios {
 esp_setup_bios "${ESP_ROOT}"
 }

@@ -1,3 +1,9 @@
+function bash_check_shell {
+shellcheck \
+--shell 'bash' \
+"${@}"
+}
+
 function bash_copy {
 cp \
 --recursive \

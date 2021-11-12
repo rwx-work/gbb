@@ -45,16 +45,17 @@ function bash_parse_arguments {
 local positional_arguments=()
 local action
 ESP_ROOT="${PWD}"
+LOG_LEVEL=${LOG_LEVEL_WARNING}
 while [ $# -gt 0 ]; do
     case "${1}" in
         '--debug') shift
-            DEBUG=0 ;;
+            LOG_LEVEL=${LOG_LEVEL_DEBUG} ;;
         '--esp-root') shift
             [ "${1}" ] && { ESP_ROOT="${1}" ; shift ; } ;;
         '--esp-uuid') shift
             [ "${1}" ] && { ESP_UUID="${1}" ; shift ; } ;;
         '-v'|'--verbose') shift
-            VERBOSE=0 ;;
+            LOG_LEVEL=${LOG_LEVEL_INFO} ;;
         *) positional_arguments+=("${1}") ; shift ;;
     esac
 done
@@ -64,7 +65,7 @@ if [ ! "${ESP_UUID}" ]; then
     ESP_UUID="$(bash_get_directory_uuid "${ESP_ROOT}")"
 fi
 # positional arguments
-action="${@}"
+action="${positional_arguments[@]}"
 if [ "${action}" ]; then
     eval "${BASH_ACTION_PREFIX}${action}"
 else

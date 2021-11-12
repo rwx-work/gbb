@@ -41,13 +41,15 @@ local esp_uuid="${1}"
 bash_remove "${GRUB_IMAGE_ROOT}"
 bash_make_directory "${GRUB_IMAGE_DIRECTORY}"
 
-echo -n "\
-export ESP_UUID=${esp_uuid}
-search --set root --fs-uuid \${ESP_UUID}
+bash_write "${GRUB_IMAGE_FILE}" "\
+export ESP_UUID='${esp_uuid}'
+search \\
+--fs-uuid \"\${ESP_UUID}\" \\
+--set 'root'
 unset prefix
 pager=1
 normal
-" >> "${GRUB_IMAGE_FILE}"
+"
 
 tar \
 --create \

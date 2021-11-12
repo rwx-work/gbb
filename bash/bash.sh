@@ -56,3 +56,11 @@ rm \
 --recursive \
 "${@}"
 }
+
+function bash_write {
+local file="${1}"
+local content="${2}"
+    log_info "↓ ${file}"
+    log_debug "${content}"
+    echo -n "${content}" > "${file}"
+}

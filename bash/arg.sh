@@ -12,6 +12,10 @@ esp_display_usage "${ESP_ROOT}"
 }
 
 function arg_action_lint {
+local module
+for module in "${MODULES[@]}"; do
+    log_info "${module}"
+done
 bash_check_shell "${MODULES[@]}"
 }
 

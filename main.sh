@@ -1,17 +1,9 @@
 #! /usr/bin/env bash
-BASH_SHEBANG='#! /usr/bin/env bash'
 # TODO explain why eval
 # TODO explain
-BASH_FILE='BASH_FILE="$(realpath "${BASH_SOURCE[0]}")"'
+BASH_FILE="$(realpath "${BASH_SOURCE[0]}")"
 # TODO explain
-BASH_ROOT='BASH_ROOT="$(dirname "${BASH_FILE}")"'
-BASH_HEADER="\
-${BASH_SHEBANG}
-${BASH_FILE}
-${BASH_ROOT}
-"
-eval "${BASH_FILE}"
-eval "${BASH_ROOT}"
+BASH_ROOT="$(dirname "${BASH_FILE}")"
 
 # import bash modules
 directory="${BASH_ROOT}/bash"

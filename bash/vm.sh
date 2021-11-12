@@ -31,7 +31,7 @@ bash_parted "${file}" \
 'set' 2 'esp' 'on' \
 'mkpart' 'data' ${VM_ESP} ${VM_SIZE}
 
-for dev in /dev/nbd0; do
+for dev in /dev/nbd*; do
     echo "→ ${dev}"
     if qemu-nbd --connect "${dev}" --format 'raw' "${file}"; then
         directory="$(mktemp --directory)"

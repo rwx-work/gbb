@@ -61,7 +61,7 @@ if [ "${action}" ]; then
 else
     # TODO manipulate strings without awk
     actions="$(\
-grep "function ${ARG_ACTION_PREFIX}" "${BASH_SOURCE}" \
+grep "function ${ARG_ACTION_PREFIX}" "${BASH_SOURCE[0]}" \
 | awk "{gsub(\"^${ARG_ACTION_PREFIX}\",\"\",\$2);print \$2}" \
 )"
     for action in "${actions[@]}"; do

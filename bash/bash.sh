@@ -1,3 +1,9 @@
+function bash_copy {
+cp \
+--recursive \
+"${@}"
+}
+
 function bash_display_usage {
 du \
 --human-readable \
@@ -18,9 +24,24 @@ findmnt \
 "${1}"
 }
 
+function bash_list {
+ls \
+--all \
+--color \
+-l \
+-p \
+"${@}"
+}
+
 function bash_make_directory {
 mkdir \
 --parents \
+"${@}"
+}
+
+function bash_parted {
+parted \
+--script \
 "${@}"
 }
 

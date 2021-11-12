@@ -51,6 +51,7 @@ pager=1
 normal
 "
 
+log_file_write "${GRUB_IMAGE_ARCHIVE}"
 tar \
 --create \
 --auto-compress \
@@ -68,6 +69,7 @@ local modules=("${GRUB_IMAGE_MODULES[@]}")
 if [ "${architecture}" == 'i386-pc' ]; then
     modules=("${modules[@]}" "${GRUB_IMAGE_BIOS_MODULES[@]}")
 fi
+log_file_write "${file}"
 grub-mkimage \
 --compress "${GRUB_IMAGE_COMPRESSION}" \
 --memdisk "${GRUB_IMAGE_ARCHIVE}" \

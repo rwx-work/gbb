@@ -18,3 +18,10 @@ function log_info {
 function log_warning {
 [ ${LOG_LEVEL} -le ${LOG_LEVEL_WARNING} ] && echo "${@}"
 }
+
+function log_file_write {
+if [ "${1}" ]; then
+    log_info '→' "${1}"
+    [ "${2}" ] && log_debug "${2}"
+fi
+}

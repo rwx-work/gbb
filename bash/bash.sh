@@ -60,7 +60,6 @@ rm \
 function bash_write {
 local file="${1}"
 local content="${2}"
-    log_info "↓ ${file}"
-    log_debug "${content}"
+    log_file_write "${file}" "${content}"
     echo -n "${content}" > "${file}"
 }

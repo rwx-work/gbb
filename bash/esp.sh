@@ -14,7 +14,7 @@ bash_remove \
 "${ESP_EFI_ROOT}" \
 "${ESP_BIOS_ROOT}"
 
-grub_make_memdisk "${UUID_ESP}"
+grub_make_memdisk "${ESP_UUID}"
 
 # 2 efi
 
@@ -43,7 +43,7 @@ bash_remove \
 
 function esp_display_usage {
 local root="${1}"
-[ "${VERBOSE}" ] && echo "${root}"
+log_info "${root}"
 cd "${root}"
 # architectures
 bash_display_usage \

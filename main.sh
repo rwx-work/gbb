@@ -13,14 +13,7 @@ for module in "${modules[@]}"; do
 done
 unset directory module modules
 
-BASH_ACTION="${1}"
-BASH_ACTION_PREFIX='bash_action_'
-# TODO manipulate strings without awk
-BASH_ACTIONS="$(\
-grep "function ${BASH_ACTION_PREFIX}" "${BASH_FILE}" \
-| awk "{gsub(\"^${BASH_ACTION_PREFIX}\",\"\",\$2);print \$2}" \
-)"
-
+# actions
 
 function bash_action_build {
 esp_build "${ESP_ROOT}"
@@ -39,13 +32,41 @@ function bash_action_virtualize {
 vm_virtualize "${ESP_ROOT}"
 }
 
-# TODO parse argument
-ESP_ROOT="${PWD}"
-# TODO implement default action
+# parse
+
+BASH_ACTION_PREFIX='bash_action_'
+# TODO manipulate strings without awk
+BASH_ACTIONS="$(\
+grep "function ${BASH_ACTION_PREFIX}" "${BASH_FILE}" \
+| awk "{gsub(\"^${BASH_ACTION_PREFIX}\",\"\",\$2);print \$2}" \
+)"
+
 function bash_parse_arguments {
+local positional_arguments=()
 local action
-if [ "${BASH_ACTION}" ]; then
-    eval "bash_action_${BASH_ACTION}"
+ESP_ROOT="${PWD}"
+while [ $# -gt 0 ]; do
+    case "${1}" in
+        '--debug') shift
+            DEBUG=0 ;;
+        '--esp-root') shift
+            [ "${1}" ] && { ESP_ROOT="${1}" ; shift ; } ;;
+        '--esp-uuid') shift
+            [ "${1}" ] && { ESP_UUID="${1}" ; shift ; } ;;
+        '-v'|'--verbose') shift
+            VERBOSE=0 ;;
+        *) positional_arguments+=("${1}") ; shift ;;
+    esac
+done
+# post processing
+ESP_ROOT="$(realpath "${ESP_ROOT}")"
+if [ ! "${ESP_UUID}" ]; then
+    ESP_UUID="$(bash_get_directory_uuid "${ESP_ROOT}")"
+fi
+# positional arguments
+action="${@}"
+if [ "${action}" ]; then
+    eval "${BASH_ACTION_PREFIX}${action}"
 else
     for action in "${BASH_ACTIONS[@]}"; do
         echo "${action}"
@@ -53,4 +74,4 @@ else
 fi
 }
 
-bash_parse_arguments
+bash_parse_arguments "${@}"

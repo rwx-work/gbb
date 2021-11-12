@@ -1,18 +1,24 @@
 #! /usr/bin/env bash
 
-# TODO explain
-BASH_FILE="$(realpath "${BASH_SOURCE}")"
-# TODO explain
-BASH_ROOT="$(dirname "${BASH_FILE}")"
+MODULES_DIRECTORY='bash'
 
-# import bash modules
-directory="${BASH_ROOT}/bash"
-readarray -t modules <<< "$(ls -1 "${directory}")"
+# TODO explain
+function import_modules {
+local directory="${1}"
+local file="$(realpath "${BASH_SOURCE}")"
+local root="$(dirname "${file}")"
+local modules
+local module
+readarray -t modules <<< "$(ls -1 "${root}/${directory}")"
 for module in "${modules[@]}"; do
-    source "${directory}/${module}"
+    source "${root}/${directory}/${module}"
 done
-unset directory module modules
+}
 
+function main {
+import_modules "${MODULES_DIRECTORY}"
 # parse arguments
-
 arg_parse "${@}"
+}
+
+main "${@}"

@@ -34,45 +34,4 @@ vm_virtualize "${ESP_ROOT}"
 
 # parse
 
-BASH_ACTION_PREFIX='bash_action_'
-# TODO manipulate strings without awk
-BASH_ACTIONS="$(\
-grep "function ${BASH_ACTION_PREFIX}" "${BASH_FILE}" \
-| awk "{gsub(\"^${BASH_ACTION_PREFIX}\",\"\",\$2);print \$2}" \
-)"
-
-function bash_parse_arguments {
-local positional_arguments=()
-local action
-ESP_ROOT="${PWD}"
-LOG_LEVEL=${LOG_LEVEL_WARNING}
-while [ $# -gt 0 ]; do
-    case "${1}" in
-        '--debug') shift
-            LOG_LEVEL=${LOG_LEVEL_DEBUG} ;;
-        '--esp-root') shift
-            [ "${1}" ] && { ESP_ROOT="${1}" ; shift ; } ;;
-        '--esp-uuid') shift
-            [ "${1}" ] && { ESP_UUID="${1}" ; shift ; } ;;
-        '-v'|'--verbose') shift
-            LOG_LEVEL=${LOG_LEVEL_INFO} ;;
-        *) positional_arguments+=("${1}") ; shift ;;
-    esac
-done
-# post processing
-ESP_ROOT="$(realpath "${ESP_ROOT}")"
-if [ ! "${ESP_UUID}" ]; then
-    ESP_UUID="$(bash_get_directory_uuid "${ESP_ROOT}")"
-fi
-# positional arguments
-action="${positional_arguments[@]}"
-if [ "${action}" ]; then
-    eval "${BASH_ACTION_PREFIX}${action}"
-else
-    for action in "${BASH_ACTIONS[@]}"; do
-        echo "${action}"
-    done
-fi
-}
-
-bash_parse_arguments "${@}"
+arg_parse "${@}"

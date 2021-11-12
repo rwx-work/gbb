@@ -34,19 +34,22 @@ function bash_action_setup_bios {
 esp_setup_bios "${ESP_ROOT}"
 }
 
+function bash_action_virtualize {
+vm_virtualize "${ESP_ROOT}"
+}
+
 # TODO parse argument
 ESP_ROOT="${PWD}"
 # TODO implement default action
 function bash_parse_arguments {
 local action
-if ! eval "bash_action_${BASH_ACTION}" 2> /dev/null; then
+if [ "${BASH_ACTION}" ]; then
+    eval "bash_action_${BASH_ACTION}"
+else
     for action in "${BASH_ACTIONS[@]}"; do
         echo "${action}"
     done
 fi
 }
-
-mp="$(bash_get_directory_mountpoint "${ESP_ROOT}")"
-bash_get_mountpoint_uuid "${mp}"
 
 bash_parse_arguments

@@ -4,8 +4,7 @@ ESP_EFI_FILE="${ESP_EFI_DIRECTORY}/bootx64.efi"
 
 ESP_BIOS_ROOT='bios'
 ESP_BIOS_IMAGE="${ESP_BIOS_ROOT}/core.img"
-
-GRUBASH_BIOS_SETUP="${ESP_BIOS_ROOT}/setup"
+ESP_BIOS_SETUP="${ESP_BIOS_ROOT}/setup"
 
 function esp_build {
 local root="${1}"
@@ -30,24 +29,13 @@ grub_make_image \
 bash_make_directory "${ESP_BIOS_ROOT}"
 
 # TODO explain why local copy
-cp \
-"${GRUB_BIOS_BOOT}" \
-"${ESP_BIOS_ROOT}"
+cp "${GRUB_BIOS_BOOT}" "${ESP_BIOS_ROOT}"
+cp "${GRUB_BIOS_SETUP}" "${ESP_BIOS_SETUP}"
 
 # make image file
 grub_make_image \
 'i386-pc' \
 "${ESP_BIOS_IMAGE}"
-
-# TODO explain why absoulte path
-echo -n "\
-${BASH_HEADER}
-${GRUB_BIOS_SETUP} \\
---directory \"\${BASH_ROOT}\" \\
-\"\${1}\"
-" >> "${GRUBASH_BIOS_SETUP}"
-# set file executable
-chmod +x "${GRUBASH_BIOS_SETUP}"
 
 bash_remove \
 "${GRUB_IMAGE_ARCHIVE}"
@@ -61,4 +49,15 @@ bash_display_usage \
 "${ESP_EFI_ROOT}"
 # root
 bash_display_usage
+}
+
+# TODO explain why absoulte path
+function esp_setup_bios {
+local root="${1}"
+# TODO mountpoint from directory
+# TODO device from mountpoint
+# TODO device if partition
+"${root}/${ESP_BIOS_SETUP}" \
+--directory "${root}/${ESP_BIOS_ROOT}" \
+"${device}"
 }

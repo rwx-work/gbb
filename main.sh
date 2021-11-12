@@ -38,6 +38,10 @@ function bash_action_display {
 esp_display_usage "${ESP_ROOT}"
 }
 
+function bash_action_setup_bios {
+esp_setup_bios "${ESP_ROOT}"
+}
+
 # TODO parse argument
 ESP_ROOT="${PWD}"
 # TODO implement default action

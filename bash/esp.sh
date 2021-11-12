@@ -43,6 +43,8 @@ bash_remove \
 
 function esp_display_usage {
 local root="${1}"
+[ "${VERBOSE}" ] && echo "${root}"
+cd "${root}"
 # architectures
 bash_display_usage \
 "${ESP_BIOS_ROOT}" \

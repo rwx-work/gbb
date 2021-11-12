@@ -3,6 +3,8 @@ LOG_LEVEL_INFO=2
 LOG_LEVEL_WARNING=3
 LOG_LEVEL_ERROR=4
 
+LOG_LEVEL=${LOG_LEVEL_WARNING}
+
 function log_debug {
 [ ${LOG_LEVEL} -le ${LOG_LEVEL_DEBUG} ] && echo "${@}"
 }

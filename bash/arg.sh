@@ -31,7 +31,6 @@ local action
 local actions
 # pre process
 ESP_ROOT="${PWD}"
-LOG_LEVEL=${LOG_LEVEL_WARNING}
 # process
 while [ $# -gt 0 ]; do
     case "${1}" in

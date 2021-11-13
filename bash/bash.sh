@@ -40,13 +40,6 @@ parted \
 "${@}"
 }
 
-function bash_remove {
-rm \
---force \
---recursive \
-"${@}"
-}
-
 function bash_write {
 local file="${1}"
 local content="${2}"

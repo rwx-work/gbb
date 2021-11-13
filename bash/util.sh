@@ -27,3 +27,10 @@ mkdir \
 --parents \
 "${@}"
 }
+
+function util_remove {
+rm \
+--force \
+--recursive \
+"${@}"
+}

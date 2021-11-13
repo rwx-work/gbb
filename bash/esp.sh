@@ -10,7 +10,7 @@ function esp_build {
 local root="${1}"
 cd "${root}"
 
-bash_remove \
+util_remove \
 "${ESP_EFI_ROOT}" \
 "${ESP_BIOS_ROOT}"
 
@@ -37,7 +37,7 @@ grub_make_image \
 'i386-pc' \
 "${ESP_BIOS_IMAGE}"
 
-bash_remove \
+util_remove \
 "${GRUB_IMAGE_ARCHIVE}"
 
 # TODO grub env file

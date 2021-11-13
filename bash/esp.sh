@@ -56,9 +56,8 @@ bash_display_usage
 # TODO explain why absoulte path
 function esp_setup_bios {
 local root="${1}"
-# TODO mountpoint from directory
-# TODO device from mountpoint
-# TODO device if partition
+local device
+device="$(bash_get_directory_device "${root}")"
 "${root}/${ESP_BIOS_SETUP}" \
 --directory "${root}/${ESP_BIOS_ROOT}" \
 "${device}"

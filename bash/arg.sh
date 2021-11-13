@@ -54,22 +54,26 @@ ESP_ROOT="$(realpath "${ESP_ROOT}")"
 if [ ! "${ESP_UUID}" ]; then
     ESP_UUID="$(bash_get_directory_uuid "${ESP_ROOT}")"
 fi
+# positional arguments
+actions="$(\
+grep "function ${ARG_ACTION_PREFIX}" "${BASH_SOURCE[0]}" \
+| awk "{gsub(\"^${ARG_ACTION_PREFIX}\",\"\",\$2);print \$2}" \
+)"
+action="${positional_arguments[0]}"
 # display arguments
 log_info "\
 Log level: $(log_level "${LOG_LEVEL}")
  ESP root: ${ESP_ROOT}
  ESP UUID: ${ESP_UUID}
+
+   Action: ${action}
 "
-# positional arguments
-action="${positional_arguments[0]}"
+# act
 if [ "${action}" ]; then
+    # TODO check action in actions
     eval "${ARG_ACTION_PREFIX}${action}"
 else
     # TODO manipulate strings without awk
-    actions="$(\
-grep "function ${ARG_ACTION_PREFIX}" "${BASH_SOURCE[0]}" \
-| awk "{gsub(\"^${ARG_ACTION_PREFIX}\",\"\",\$2);print \$2}" \
-)"
     for action in "${actions[@]}"; do
         echo "${action}"
     done

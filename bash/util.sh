@@ -59,3 +59,11 @@ findmnt \
 --output "${stat}" \
 "${mount}"
 }
+
+function util_list_block_parent {
+local block="${1}"
+lsblk \
+--noheadings \
+--output 'PKNAME' \
+"${block}"
+}

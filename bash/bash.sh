@@ -23,15 +23,24 @@ stat \
 "${1}"
 }
 
-function bash_get_directory_uuid {
-local mp="$(bash_get_directory_mountpoint "${1}")"
-bash_get_mountpoint_uuid "${mp}"
+function bash_get_directory_device {
+local mountpoint="$(bash_get_directory_mountpoint "${1}")"
+local source="$(bash_get_mountpoint_output "${mountpoint}" 'SOURCE')"
+lsblk \
+--noheadings \
+--output 'PKNAME' \
+"${source}"
 }
 
-function bash_get_mountpoint_uuid {
+function bash_get_directory_uuid {
+local mountpoint="$(bash_get_directory_mountpoint "${1}")"
+bash_get_mountpoint_output "${mountpoint}" 'UUID'
+}
+
+function bash_get_mountpoint_output {
 findmnt \
 --noheadings \
---output 'UUID' \
+--output "${2}" \
 "${1}"
 }
 

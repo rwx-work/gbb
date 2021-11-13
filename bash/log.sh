@@ -33,5 +33,5 @@ fi
 
 function log_level {
 local level="${1}"
-    echo "${LOG_LEVELS["${level}"]}"
+echo "${LOG_LEVELS["${level}"]}"
 }

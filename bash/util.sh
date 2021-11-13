@@ -21,3 +21,9 @@ ls \
 -p \
 "${@}"
 }
+
+function util_make_directory {
+mkdir \
+--parents \
+"${@}"
+}

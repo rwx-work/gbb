@@ -34,12 +34,6 @@ findmnt \
 "${1}"
 }
 
-function bash_make_directory {
-mkdir \
---parents \
-"${@}"
-}
-
 function bash_parted {
 parted \
 --script \

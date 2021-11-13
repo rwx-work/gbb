@@ -44,7 +44,7 @@ for dev in /dev/nbd*; do
         device="${dev}p3"
         mkfs.ext4 "${device}"
         mount "${device}" "${directory}"
-        bash_make_directory "${directory}/fs"
+        util_make_directory "${directory}/fs"
         util_list "${directory}"
         umount "${directory}"
         # exit

@@ -18,7 +18,7 @@ grub_make_memdisk "${ESP_UUID}"
 
 # 2 efi
 
-bash_make_directory "${ESP_EFI_DIRECTORY}"
+util_make_directory "${ESP_EFI_DIRECTORY}"
 
 grub_make_image \
 'x86_64-efi' \
@@ -26,7 +26,7 @@ grub_make_image \
 
 # 2b bios
 
-bash_make_directory "${ESP_BIOS_ROOT}"
+util_make_directory "${ESP_BIOS_ROOT}"
 
 # TODO explain why local copy
 util_copy "${GRUB_BIOS_BOOT}" "${ESP_BIOS_ROOT}"

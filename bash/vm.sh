@@ -37,7 +37,7 @@ for dev in /dev/nbd*; do
         device="${dev}p2"
         mkfs.vfat "${device}"
         mount "${device}" "${directory}"
-        bash_copy "${ESP_EFI_ROOT}" "${ESP_BIOS_ROOT}" "${directory}"
+        util_copy "${ESP_EFI_ROOT}" "${ESP_BIOS_ROOT}" "${directory}"
         bash_list "${directory}"
         umount "${directory}"
         # data

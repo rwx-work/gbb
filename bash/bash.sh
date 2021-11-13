@@ -4,12 +4,6 @@ shellcheck \
 "${@}"
 }
 
-function bash_copy {
-cp \
---recursive \
-"${@}"
-}
-
 function bash_display_usage {
 du \
 --human-readable \

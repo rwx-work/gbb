@@ -29,8 +29,8 @@ grub_make_image \
 bash_make_directory "${ESP_BIOS_ROOT}"
 
 # TODO explain why local copy
-cp "${GRUB_BIOS_BOOT}" "${ESP_BIOS_ROOT}"
-cp "${GRUB_BIOS_SETUP}" "${ESP_BIOS_SETUP}"
+util_copy "${GRUB_BIOS_BOOT}" "${ESP_BIOS_ROOT}"
+util_copy "${GRUB_BIOS_SETUP}" "${ESP_BIOS_SETUP}"
 
 # make image file
 grub_make_image \

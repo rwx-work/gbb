@@ -35,8 +35,9 @@ rm \
 "${@}"
 }
 
-function util_stat_mountpoint {
+function util_stat_path_mount {
+local path="${1}"
 stat \
 --format '%m' \
-"${1}"
+"${path}"
 }

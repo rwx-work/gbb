@@ -5,10 +5,10 @@ shellcheck \
 }
 
 function bash_get_directory_device {
-local mountpoint
+local mount
 local source
-mountpoint="$(util_stat_mountpoint "${1}")"
-source="$(bash_get_mountpoint_output "${mountpoint}" 'SOURCE')"
+mount="$(util_stat_path_mount "${1}")"
+source="$(bash_get_mountpoint_output "${mount}" 'SOURCE')"
 lsblk \
 --noheadings \
 --output 'PKNAME' \
@@ -16,9 +16,9 @@ lsblk \
 }
 
 function bash_get_directory_uuid {
-local mountpoint
-mountpoint="$(util_stat_mountpoint "${1}")"
-bash_get_mountpoint_output "${mountpoint}" 'UUID'
+local mount
+mount="$(util_stat_path_mount "${1}")"
+bash_get_mountpoint_output "${mount}" 'UUID'
 }
 
 function bash_get_mountpoint_output {

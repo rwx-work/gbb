@@ -59,7 +59,7 @@ util_display_usage
 function esp_setup_bios {
 local root="${1}"
 local device
-device="$(bash_get_directory_device "${root}")"
+device="$(util_get_path_device "${root}")"
 "${root}/${ESP_BIOS_SETUP}" \
 --directory "${root}/${ESP_BIOS_ROOT}" \
 "${device}"

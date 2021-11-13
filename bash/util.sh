@@ -1,3 +1,12 @@
+function util_get_path_device {
+local path="${1}"
+local mount
+local source
+mount="$(util_stat_path_mount "${path}")"
+source="$(util_find_mount_stat "${mount}" 'SOURCE')"
+util_list_block_parent "${source}"
+}
+
 function util_get_path_uuid {
 local path="${1}"
 local mount

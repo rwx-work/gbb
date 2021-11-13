@@ -42,12 +42,13 @@ util_remove "${GRUB_IMAGE_ROOT}"
 util_make_directory "${GRUB_IMAGE_DIRECTORY}"
 
 bash_write "${GRUB_IMAGE_FILE}" "\
-export ESP_UUID='${esp_uuid}'
+ESP_UUID='${esp_uuid}'
 search \\
 --fs-uuid \"\${ESP_UUID}\" \\
 --set 'root'
 unset prefix
 pager=1
+export ESP_UUID
 normal
 "
 

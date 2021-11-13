@@ -54,8 +54,14 @@ ESP_ROOT="$(realpath "${ESP_ROOT}")"
 if [ ! "${ESP_UUID}" ]; then
     ESP_UUID="$(bash_get_directory_uuid "${ESP_ROOT}")"
 fi
+# display arguments
+log_info "\
+Log level: $(log_level "${LOG_LEVEL}")
+ ESP root: ${ESP_ROOT}
+ ESP UUID: ${ESP_UUID}
+"
 # positional arguments
-action="${positional_arguments}"
+action="${positional_arguments[0]}"
 if [ "${action}" ]; then
     eval "${ARG_ACTION_PREFIX}${action}"
 else

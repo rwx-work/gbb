@@ -52,7 +52,7 @@ done
 # post process
 ESP_ROOT="$(realpath "${ESP_ROOT}")"
 if [ ! "${ESP_UUID}" ]; then
-    ESP_UUID="$(bash_get_directory_uuid "${ESP_ROOT}")"
+    ESP_UUID="$(util_get_path_uuid "${ESP_ROOT}")"
 fi
 # positional arguments
 actions="$(\

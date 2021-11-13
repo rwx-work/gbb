@@ -1,3 +1,10 @@
+function util_get_path_uuid {
+local path="${1}"
+local mount
+mount="$(util_stat_path_mount "${path}")"
+util_find_mount_stat "${mount}" 'UUID'
+}
+
 # coreutils
 
 function util_copy {

@@ -15,12 +15,6 @@ lsblk \
 "${source}"
 }
 
-function bash_get_directory_uuid {
-local mount
-mount="$(util_stat_path_mount "${1}")"
-util_find_mount_stat "${mount}" 'UUID'
-}
-
 function bash_parted {
 parted \
 --script \

@@ -45,13 +45,11 @@ mkdir \
 }
 
 function util_make_temporary_directory {
-local path="${1}"
-mktemp --directory "${path}"
+mktemp --directory
 }
 
 function util_make_temporary_file {
-local path="${1}"
-mktemp "${path}"
+mktemp
 }
 
 function util_remove {

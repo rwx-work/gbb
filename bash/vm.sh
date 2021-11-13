@@ -10,7 +10,7 @@ local directory
 local device
 
 cd "${root}"
-file="$(mktemp)"
+file="$(util_make_temporary_file)"
 
 # TODO make bash function
 dd \
@@ -32,7 +32,7 @@ bash_parted "${file}" \
 for dev in /dev/nbd*; do
     echo "→ ${dev}"
     if qemu-nbd --connect "${dev}" --format 'raw' "${file}"; then
-        directory="$(mktemp --directory)"
+        directory="$(util_make_temporary_directory)"
         # esp
         device="${dev}p2"
         mkfs.vfat "${device}"

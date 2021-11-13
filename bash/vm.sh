@@ -38,14 +38,14 @@ for dev in /dev/nbd*; do
         mkfs.vfat "${device}"
         mount "${device}" "${directory}"
         util_copy "${ESP_EFI_ROOT}" "${ESP_BIOS_ROOT}" "${directory}"
-        bash_list "${directory}"
+        util_list "${directory}"
         umount "${directory}"
         # data
         device="${dev}p3"
         mkfs.ext4 "${device}"
         mount "${device}" "${directory}"
         bash_make_directory "${directory}/fs"
-        bash_list "${directory}"
+        util_list "${directory}"
         umount "${directory}"
         # exit
         echo "← ${dev}"

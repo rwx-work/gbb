@@ -34,15 +34,6 @@ findmnt \
 "${1}"
 }
 
-function bash_list {
-ls \
---all \
---color \
--l \
--p \
-"${@}"
-}
-
 function bash_make_directory {
 mkdir \
 --parents \

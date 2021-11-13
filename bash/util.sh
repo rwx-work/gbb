@@ -12,3 +12,12 @@ du \
 --summarize \
 "${@}"
 }
+
+function util_list {
+ls \
+--all \
+--color \
+-l \
+-p \
+"${@}"
+}

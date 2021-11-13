@@ -1,7 +1,8 @@
-LOG_LEVEL_DEBUG=1
-LOG_LEVEL_INFO=2
-LOG_LEVEL_WARNING=3
-LOG_LEVEL_ERROR=4
+LOG_LEVEL_DEBUG=0
+LOG_LEVEL_INFO=1
+LOG_LEVEL_WARNING=2
+LOG_LEVEL_ERROR=3
+LOG_LEVELS=('debug' 'info' 'warning' 'error')
 
 LOG_LEVEL=${LOG_LEVEL_WARNING}
 
@@ -22,8 +23,15 @@ function log_warning {
 }
 
 function log_file_write {
-if [ "${1}" ]; then
-    log_info '→' "${1}"
-    [ "${2}" ] && log_debug "${2}"
+local file="${1}"
+local content="${2}"
+if [ "${file}" ]; then
+    log_info '→' "${file}"
+    [ "${content}" ] && log_debug "${content}"
 fi
+}
+
+function log_level {
+local level="${1}"
+    echo "${LOG_LEVELS["${level}"]}"
 }

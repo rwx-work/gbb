@@ -44,6 +44,16 @@ mkdir \
 "${@}"
 }
 
+function util_make_temporary_directory {
+local path="${1}"
+mktemp --directory "${path}"
+}
+
+function util_make_temporary_file {
+local path="${1}"
+mktemp "${path}"
+}
+
 function util_remove {
 rm \
 --force \

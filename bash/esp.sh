@@ -48,11 +48,11 @@ local root="${1}"
 log_info "${root}"
 cd "${root}"
 # architectures
-bash_display_usage \
+util_display_usage \
 "${ESP_BIOS_ROOT}" \
 "${ESP_EFI_ROOT}"
 # root
-bash_display_usage
+util_display_usage
 }
 
 # TODO explain why absoulte path

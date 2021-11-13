@@ -4,13 +4,6 @@ shellcheck \
 "${@}"
 }
 
-function bash_display_usage {
-du \
---human-readable \
---summarize \
-"${@}"
-}
-
 function bash_get_directory_mountpoint {
 stat \
 --format '%m' \

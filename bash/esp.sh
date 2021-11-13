@@ -39,6 +39,8 @@ grub_make_image \
 
 bash_remove \
 "${GRUB_IMAGE_ARCHIVE}"
+
+# TODO grub env file
 }
 
 function esp_display_usage {

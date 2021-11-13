@@ -34,3 +34,9 @@ rm \
 --recursive \
 "${@}"
 }
+
+function util_stat_mountpoint {
+stat \
+--format '%m' \
+"${1}"
+}

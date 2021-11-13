@@ -1,8 +1,6 @@
 VM_ESP=16
 VM_SIZE=128
 
-VM_PARTED='/usr/sbin/parted'
-
 # TODO check user, dd, parted, qemu-nbd
 function vm_virtualize {
 local root="${1}"

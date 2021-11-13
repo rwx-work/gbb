@@ -8,7 +8,7 @@ function bash_get_directory_device {
 local mount
 local source
 mount="$(util_stat_path_mount "${1}")"
-source="$(bash_get_mountpoint_output "${mount}" 'SOURCE')"
+source="$(util_find_mount_stat "${mount}" 'SOURCE')"
 lsblk \
 --noheadings \
 --output 'PKNAME' \
@@ -18,14 +18,7 @@ lsblk \
 function bash_get_directory_uuid {
 local mount
 mount="$(util_stat_path_mount "${1}")"
-bash_get_mountpoint_output "${mount}" 'UUID'
-}
-
-function bash_get_mountpoint_output {
-findmnt \
---noheadings \
---output "${2}" \
-"${1}"
+util_find_mount_stat "${mount}" 'UUID'
 }
 
 function bash_parted {

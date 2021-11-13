@@ -41,3 +41,14 @@ stat \
 --format '%m' \
 "${path}"
 }
+
+# util-linux
+
+function util_find_mount_stat {
+local mount="${1}"
+local stat="${2}"
+findmnt \
+--noheadings \
+--output "${stat}" \
+"${mount}"
+}

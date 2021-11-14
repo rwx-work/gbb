@@ -1,28 +1,27 @@
 #! /usr/bin/env bash
+MAIN_BASH_FILE="$(realpath "${BASH_SOURCE[0]}")"
+MAIN_BASH_ROOT="$(dirname "${MAIN_BASH_FILE}")"
 
-MODULES_DIRECTORY='bash'
+MAIN_BASH_DIRECTORY='bash'
+MAIN_GRUB_ROOT='grub'
 
 # TODO explain
-function import_modules {
+function main_import_modules {
 local directory="${1}"
-local file
-local root
 local modules
 local module
 local path
-file="$(realpath "${BASH_SOURCE[0]}")"
-root="$(dirname "${file}")"
 MODULES=("${file}")
-readarray -t modules <<< "$(ls -1 "${root}/${directory}")"
+readarray -t modules <<< "$(ls -1 "${MAIN_BASH_ROOT}/${directory}")"
 for module in "${modules[@]}"; do
-    path="${root}/${directory}/${module}"
+    path="${MAIN_BASH_ROOT}/${directory}/${module}"
     MODULES+=("${path}")
     source "${path}"
 done
 }
 
 function main {
-import_modules "${MODULES_DIRECTORY}"
+main_import_modules "${MAIN_BASH_DIRECTORY}"
 # parse arguments
 arg_parse "${@}"
 }

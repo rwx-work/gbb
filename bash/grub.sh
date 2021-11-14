@@ -1,4 +1,5 @@
 GRUB_IMAGE_MODULES=(
+'regexp'
 'memdisk' 'tar'
 'search'
 'part_gpt' 'part_msdos'
@@ -46,7 +47,7 @@ ESP_UUID='${esp_uuid}'
 search \\
 --fs-uuid \"\${ESP_UUID}\" \\
 --set 'root'
-unset prefix
+prefix='/${ESP_GRUB_ROOT}'
 pager=1
 export ESP_UUID
 normal

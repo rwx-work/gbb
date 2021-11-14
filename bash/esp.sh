@@ -9,9 +9,11 @@ ESP_BIOS_SETUP="${ESP_BIOS_ROOT}/setup"
 function esp_build {
 local root="${1}"
 local memdisk
+local esp_uuid
 
 memdisk="$(util_make_temporary_file)"
-grub_make_memdisk "${memdisk}" "${ESP_UUID}"
+esp_uuid="$(util_get_path_uuid "${root}")"
+grub_make_memdisk "${memdisk}" "${esp_uuid}"
 
 util_make_directory "${root}/${ESP_EFI_DIRECTORY}"
 grub_make_image 'x86_64-efi' "${memdisk}" "${root}/${ESP_EFI_FILE}"

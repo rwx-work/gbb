@@ -1,11 +1,13 @@
+VM_BIOS=1
 VM_ESP=16
+VM_SIZE=128
 
 # TODO check user, dd, parted, qemu
 function vm_virtualize {
 local device
-local directory
 local file
 local partition
+local root
 
 file="$(util_make_temporary_file)"
 util_dump_dummy "${file}" "${VM_SIZE}"
@@ -15,11 +17,16 @@ g
 n
 
 
-+1M
++${VM_BIOS}M
+t
+4
 n
 
 
 +${VM_ESP}M
+t
+
+uefi
 n
 
 
@@ -28,23 +35,27 @@ w
 " | fdisk "${file}"
 
 device="$(util_attach_loop "${file}")"
-
 # ESP
 partition="${device}p2"
 mkfs.vfat "${partition}"
-util_mount "${partition}" '/mnt'
-esp_build '/mnt'
-util_unmount '/mnt'
+root="$(util_make_temporary_directory)"
+util_mount "${partition}" "${root}"
+esp_build "${root}"
+util_unmount "${partition}"
 # data
 partition="${device}p3"
 mkfs.ext4 "${partition}"
-util_mount "${partition}" '/mnt'
+root="$(util_make_temporary_directory)"
+util_mount "${partition}" "${root}"
 # TODO default constant
-util_make_directory '/mnt/fs/dummy'
-util_copy '/vmlinuz' '/initrd.img' '/mnt/fs/dummy'
+util_make_directory "${root}/fs/dummy"
+util_copy \
+--dereference \
+'/vmlinuz' '/initrd.img' \
+"${root}/fs/dummy"
 # TODO constant
-util_touch_file '/mnt/fs/dummy/filesystem.squashfs'
-util_unmount '/mnt'
+util_touch_file "${root}/fs/dummy/filesystem.squashfs"
+util_unmount "${partition}"
 
 util_detach_loop "${device}"
 
@@ -54,12 +65,12 @@ qemu-system-x86_64 \
 -nodefaults \
 -vga 'virtio' \
 -drive file="${file}",format='raw',if='virtio' \
--bios 'OVMF.fd'
+-bios 'OVMF.fd' \
+&
 
 }
 
 function vm_parted {
-VM_SIZE=128
 parted \
 --script \
 "${file}" \

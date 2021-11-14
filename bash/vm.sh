@@ -2,7 +2,7 @@ VM_BIOS=1
 VM_ESP=16
 VM_SIZE=128
 
-# TODO check user, parted, qemu
+# TODO check user, qemu
 function vm_virtualize {
 local device
 local directory
@@ -70,17 +70,4 @@ qemu-system-x86_64 \
 -bios 'OVMF.fd' \
 &
 
-}
-
-function vm_parted {
-parted \
---script \
-"${file}" \
-'mktable' 'gpt' \
-'unit' 'mb' \
-'mkpart' 'bios' 1 2 \
-'set' 1 'bios_grub' 'on' \
-'mkpart' 'esp' 2 ${VM_ESP} \
-'set' 2 'esp' 'on' \
-'mkpart' 'data' ${VM_ESP} ${VM_SIZE}
 }

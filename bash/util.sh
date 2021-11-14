@@ -61,7 +61,8 @@ mkdir \
 }
 
 function util_make_temporary_directory {
-mktemp --directory
+mktemp \
+--directory
 }
 
 function util_make_temporary_file {

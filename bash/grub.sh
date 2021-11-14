@@ -33,15 +33,15 @@ GRUB_IMAGE_ROOT='boot'
 GRUB_IMAGE_DIRECTORY="${GRUB_IMAGE_ROOT}/grub"
 GRUB_IMAGE_FILE="${GRUB_IMAGE_DIRECTORY}/grub.cfg"
 
-GRUB_IMAGE_ARCHIVE="${GRUB_IMAGE_ROOT}.tar"
-
 function grub_make_memdisk {
-local esp_uuid="${1}"
+local file="${1}"
+local esp_uuid="${2}"
+local root
+root="$(util_make_temporary_directory)"
 
-util_remove "${GRUB_IMAGE_ROOT}"
-util_make_directory "${GRUB_IMAGE_DIRECTORY}"
+util_make_directory "${root}/${GRUB_IMAGE_DIRECTORY}"
 
-bash_write "${GRUB_IMAGE_FILE}" "\
+bash_write "${root}/${GRUB_IMAGE_FILE}" "\
 ESP_UUID='${esp_uuid}'
 search \\
 --fs-uuid \"\${ESP_UUID}\" \\
@@ -52,28 +52,28 @@ export ESP_UUID
 normal
 "
 
-log_file_write "${GRUB_IMAGE_ARCHIVE}"
+log_file_write "${file}"
 tar \
 --create \
---auto-compress \
---file "${GRUB_IMAGE_ARCHIVE}" \
-"${GRUB_IMAGE_ROOT}"
-
-util_remove "${GRUB_IMAGE_ROOT}"
+--file "${file}" \
+--directory "${root}" \
+"${root}/${GRUB_IMAGE_ROOT}"
 }
 
 function grub_make_image {
 local architecture="${1}"
-local file="${2}"
-shift 2
-local modules=("${GRUB_IMAGE_MODULES[@]}")
+local memdisk="${2}"
+local file="${3}"
+shift 3
+local modules
+modules=("${GRUB_IMAGE_MODULES[@]}")
 if [ "${architecture}" == 'i386-pc' ]; then
-    modules=("${modules[@]}" "${GRUB_IMAGE_BIOS_MODULES[@]}")
+    modules+=("${GRUB_IMAGE_BIOS_MODULES[@]}")
 fi
 log_file_write "${file}"
 grub-mkimage \
 --compress "${GRUB_IMAGE_COMPRESSION}" \
---memdisk "${GRUB_IMAGE_ARCHIVE}" \
+--memdisk "${memdisk}" \
 --format "${architecture}" \
 --output "${file}" \
 "${modules[@]}"

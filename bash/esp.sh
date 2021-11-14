@@ -8,38 +8,21 @@ ESP_BIOS_SETUP="${ESP_BIOS_ROOT}/setup"
 
 function esp_build {
 local root="${1}"
-cd "${root}"
+local memdisk
 
-util_remove \
-"${ESP_EFI_ROOT}" \
-"${ESP_BIOS_ROOT}"
+memdisk="$(make_temporary_file)"
+grub_make_memdisk "${memdisk}" "${ESP_UUID}"
 
-grub_make_memdisk "${ESP_UUID}"
+util_make_directory "${root}/${ESP_EFI_DIRECTORY}"
+grub_make_image 'x86_64-efi' "${memdisk}" "${root}/${ESP_EFI_FILE}"
 
-# 2 efi
-
-util_make_directory "${ESP_EFI_DIRECTORY}"
-
-grub_make_image \
-'x86_64-efi' \
-"${ESP_EFI_FILE}"
-
-# 2b bios
-
-util_make_directory "${ESP_BIOS_ROOT}"
-
+util_make_directory "${root}/${ESP_BIOS_ROOT}"
 # TODO explain why local copy
-util_copy "${GRUB_BIOS_BOOT}" "${ESP_BIOS_ROOT}"
-util_copy "${GRUB_BIOS_SETUP}" "${ESP_BIOS_SETUP}"
+util_copy "${GRUB_BIOS_BOOT}" "${root}/${ESP_BIOS_ROOT}"
+grub_make_image 'i386-pc' "${memdisk}" "${root}/${ESP_BIOS_IMAGE}"
+util_copy "${GRUB_BIOS_SETUP}" "${root}/${ESP_BIOS_SETUP}"
 
-# make image file
-grub_make_image \
-'i386-pc' \
-"${ESP_BIOS_IMAGE}"
-
-util_remove \
-"${GRUB_IMAGE_ARCHIVE}"
-
+# TODO grub directory
 # TODO grub env file
 }
 

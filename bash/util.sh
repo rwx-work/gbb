@@ -55,6 +55,7 @@ mktemp
 function util_remove {
 rm \
 --force \
+--preserve-root \
 --recursive \
 "${@}"
 }

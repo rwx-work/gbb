@@ -35,7 +35,7 @@ dd \
 if="${UTIL_ZERO_DEVICE}" \
 of="${file}" \
 bs=${UTIL_MIB_BYTES} \
-count=${size} \
+count="${size}" \
 status='none'
 }
 

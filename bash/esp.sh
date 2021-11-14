@@ -43,18 +43,6 @@ util_remove \
 # TODO grub env file
 }
 
-function esp_display_usage {
-local root="${1}"
-log_info "${root}"
-cd "${root}"
-# architectures
-util_display_usage \
-"${ESP_BIOS_ROOT}" \
-"${ESP_EFI_ROOT}"
-# root
-util_display_usage
-}
-
 # TODO explain why absoulte path
 function esp_setup_bios {
 local root="${1}"

@@ -40,10 +40,12 @@ status='none'
 }
 
 function util_display_usage {
+local root="${1}"
 du \
 --human-readable \
 --summarize \
-"${@}"
+"${root}"/* \
+"${root}"
 }
 
 function util_list {

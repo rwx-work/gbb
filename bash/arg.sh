@@ -8,7 +8,7 @@ arg_action_display
 }
 
 function arg_action_display {
-esp_display_usage "${ESP_ROOT}"
+util_display_usage "${ESP_ROOT}"
 }
 
 function arg_action_lint {

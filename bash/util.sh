@@ -1,5 +1,6 @@
-UTIL_ZERO_DEVICE='/dev/zero'
 UTIL_MIB_BYTES='1048576'
+UTIL_NULL_DEVICE='/dev/null'
+UTIL_ZERO_DEVICE='/dev/zero'
 
 # functions
 
@@ -139,4 +140,12 @@ lsblk \
 --noheadings \
 --output 'PKNAME' \
 "${block}"
+}
+
+function util_make_fs {
+local path="${1}"
+local type="${2}"
+mkfs \
+--type "${type}" \
+"${path}"
 }

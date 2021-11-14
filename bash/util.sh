@@ -67,6 +67,24 @@ stat \
 "${path}"
 }
 
+# mount
+
+function util_attach_loop {
+local file="${1}"
+local loop
+loop="$(losetup --find)"
+losetup \
+--partscan \
+"${loop}" \
+"${file}"
+echo "${loop}"
+}
+
+function util_detach_loop {
+local loop="${1}"
+losetup --detach "${loop}"
+}
+
 # util-linux
 
 function util_find_mount_stat {

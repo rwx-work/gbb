@@ -42,8 +42,6 @@ while [ $# -gt 0 ]; do
             LOG_LEVEL=${LOG_LEVEL_DEBUG} ;;
         '--esp-root') shift
             [ "${1}" ] && { ESP_ROOT="${1}" ; shift ; } ;;
-        '--esp-uuid') shift
-            [ "${1}" ] && { ESP_UUID="${1}" ; shift ; } ;;
         '-v'|'--verbose') shift
             LOG_LEVEL=${LOG_LEVEL_INFO} ;;
         *) positional_arguments+=("${1}") ; shift ;;
@@ -51,9 +49,6 @@ while [ $# -gt 0 ]; do
 done
 # post process
 ESP_ROOT="$(realpath "${ESP_ROOT}")"
-if [ ! "${ESP_UUID}" ]; then
-    ESP_UUID="$(util_get_path_uuid "${ESP_ROOT}")"
-fi
 # positional arguments
 actions="$(\
 grep "function ${ARG_ACTION_PREFIX}" "${BASH_SOURCE[0]}" \
@@ -64,7 +59,6 @@ action="${positional_arguments[0]}"
 log_info "\
 Log level: $(log_level "${LOG_LEVEL}")
  ESP root: ${ESP_ROOT}
- ESP UUID: ${ESP_UUID}
 
    Action: ${action}
 "

@@ -4,12 +4,6 @@ shellcheck \
 "${@}"
 }
 
-function bash_parted {
-parted \
---script \
-"${@}"
-}
-
 function bash_write {
 local file="${1}"
 local content="${2}"

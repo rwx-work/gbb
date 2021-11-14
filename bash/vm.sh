@@ -1,26 +1,68 @@
 VM_ESP=16
-VM_SIZE=128
 
-# TODO check user, dd, parted, qemu-nbd
+# TODO check user, dd, parted, qemu
 function vm_virtualize {
-local root="${1}"
-local file
-local dev
-local directory
 local device
+local directory
+local file
+local partition
 
-cd "${root}"
 file="$(util_make_temporary_file)"
+util_dump_dummy "${file}" "${VM_SIZE}"
 
-# TODO make bash function
-dd \
-if='/dev/zero' \
-of="${file}" \
-bs=1048576 \
-count=${VM_SIZE} \
-status=none
+echo -n "\
+g
+n
 
-bash_parted "${file}" \
+
++1M
+n
+
+
++${VM_ESP}M
+n
+
+
+
+w
+" | fdisk "${file}"
+
+device="$(util_attach_loop "${file}")"
+
+# ESP
+partition="${device}p2"
+mkfs.vfat "${partition}"
+util_mount "${partition}" '/mnt'
+esp_build '/mnt'
+util_unmount '/mnt'
+# data
+partition="${device}p3"
+mkfs.ext4 "${partition}"
+util_mount "${partition}" '/mnt'
+# TODO default constant
+util_make_directory '/mnt/fs/dummy'
+util_copy '/vmlinuz' '/initrd.img' '/mnt/fs/dummy'
+# TODO constant
+util_touch_file '/mnt/fs/dummy/filesystem.squashfs'
+util_unmount '/mnt'
+
+util_detach_loop "${device}"
+
+qemu-system-x86_64 \
+-enable-kvm \
+-m 1024 \
+-nodefaults \
+-vga 'virtio' \
+-drive file="${file}",format='raw',if='virtio' \
+-bios 'OVMF.fd'
+
+}
+
+function vm_parted {
+VM_SIZE=128
+parted \
+--script \
+"${file}" \
 'mktable' 'gpt' \
 'unit' 'mb' \
 'mkpart' 'bios' 1 2 \
@@ -28,29 +70,4 @@ bash_parted "${file}" \
 'mkpart' 'esp' 2 ${VM_ESP} \
 'set' 2 'esp' 'on' \
 'mkpart' 'data' ${VM_ESP} ${VM_SIZE}
-
-for dev in /dev/nbd*; do
-    echo "→ ${dev}"
-    if qemu-nbd --connect "${dev}" --format 'raw' "${file}"; then
-        directory="$(util_make_temporary_directory)"
-        # esp
-        device="${dev}p2"
-        mkfs.vfat "${device}"
-        mount "${device}" "${directory}"
-        util_copy "${ESP_EFI_ROOT}" "${ESP_BIOS_ROOT}" "${directory}"
-        util_list "${directory}"
-        umount "${directory}"
-        # data
-        device="${dev}p3"
-        mkfs.ext4 "${device}"
-        mount "${device}" "${directory}"
-        util_make_directory "${directory}/fs"
-        util_list "${directory}"
-        umount "${directory}"
-        # exit
-        echo "← ${dev}"
-        qemu-nbd --disconnect "${dev}"
-        break
-    fi
-done
 }

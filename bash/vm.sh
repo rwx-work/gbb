@@ -61,6 +61,7 @@ util_unmount "${partition}"
 
 util_detach_loop "${device}"
 
+# TODO efi/bios
 qemu-system-x86_64 \
 -enable-kvm \
 -m 1024 \

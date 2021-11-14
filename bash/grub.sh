@@ -57,7 +57,7 @@ tar \
 --create \
 --file "${file}" \
 --directory "${root}" \
-"${root}/${GRUB_IMAGE_ROOT}"
+"${GRUB_IMAGE_ROOT}"
 }
 
 function grub_make_image {

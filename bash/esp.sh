@@ -10,7 +10,7 @@ function esp_build {
 local root="${1}"
 local memdisk
 
-memdisk="$(make_temporary_file)"
+memdisk="$(util_make_temporary_file)"
 grub_make_memdisk "${memdisk}" "${ESP_UUID}"
 
 util_make_directory "${root}/${ESP_EFI_DIRECTORY}"

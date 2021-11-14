@@ -147,5 +147,6 @@ local path="${1}"
 local type="${2}"
 mkfs \
 --type "${type}" \
-"${path}"
+"${path}" \
+> "${UTIL_NULL_DEVICE}"
 }

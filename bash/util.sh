@@ -1,3 +1,8 @@
+UTIL_ZERO_DEVICE='/dev/zero'
+UTIL_MIB_BYTES='1048576'
+
+# functions
+
 function util_get_path_device {
 local path="${1}"
 local mount
@@ -20,6 +25,17 @@ function util_copy {
 cp \
 --recursive \
 "${@}"
+}
+
+function util_dump_dummy {
+local file="${1}"
+local size="${2}"
+dd \
+if="${UTIL_ZERO_DEVICE}" \
+of="${file}" \
+bs=${UTIL_MIB_BYTES} \
+count=${size} \
+status='none'
 }
 
 function util_display_usage {

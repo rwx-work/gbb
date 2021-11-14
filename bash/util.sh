@@ -85,6 +85,20 @@ local loop="${1}"
 losetup --detach "${loop}"
 }
 
+function util_mount {
+local source="${1}"
+local target="${2}"
+mount \
+"${source}" \
+"${target}"
+}
+
+function util_unmount {
+local source="${1}"
+umount \
+"${source}"
+}
+
 # util-linux
 
 function util_find_mount_stat {

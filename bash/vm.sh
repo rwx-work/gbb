@@ -67,6 +67,7 @@ qemu-system-x86_64 \
 -m 1024 \
 -nodefaults \
 -vga 'virtio' \
+-full-screen \
 -drive file="${file}",format='raw',if='virtio' \
 -bios 'OVMF.fd' \
 &

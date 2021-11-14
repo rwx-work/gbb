@@ -83,6 +83,12 @@ stat \
 "${path}"
 }
 
+function util_touch_file {
+local file="${1}"
+touch \
+"${file}"
+}
+
 # mount
 
 function util_attach_loop {

@@ -3,6 +3,7 @@ ESP_EFI_DIRECTORY="${ESP_EFI_ROOT}/boot"
 ESP_EFI_FILE="${ESP_EFI_DIRECTORY}/bootx64.efi"
 
 ESP_GRUB_ROOT='grub'
+ESP_GRUB_FILE='grub.env'
 
 ESP_BIOS_ROOT='bios'
 ESP_BIOS_IMAGE="${ESP_BIOS_ROOT}/core.img"
@@ -12,6 +13,7 @@ function esp_build {
 local root="${1}"
 local memdisk
 local esp_uuid
+local env
 
 memdisk="$(util_make_temporary_file)"
 esp_uuid="$(util_get_path_uuid "${root}")"
@@ -27,7 +29,9 @@ grub_make_image 'i386-pc' "${memdisk}" "${root}/${ESP_BIOS_IMAGE}"
 util_copy "${GRUB_BIOS_SETUP}" "${root}/${ESP_BIOS_SETUP}"
 # grub
 util_copy "${MAIN_BASH_ROOT}/${MAIN_GRUB_ROOT}" "${root}/${ESP_GRUB_ROOT}"
-# TODO grub env file
+# env
+env="${root}/${ESP_GRUB_FILE}"
+[ -e "${env}" ] || grub_make_env "${env}"
 }
 
 # TODO explain why absoulte path

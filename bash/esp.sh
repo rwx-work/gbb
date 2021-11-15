@@ -17,7 +17,8 @@ local env
 
 memdisk="$(util_make_temporary_file)"
 esp_uuid="$(util_get_path_uuid "${root}")"
-grub_make_memdisk "${memdisk}" "${esp_uuid}"
+grub_make_memdisk "${memdisk}" \
+"${esp_uuid}" "/${ESP_GRUB_ROOT}" "/${ESP_GRUB_FILE}"
 # efi
 util_make_directory "${root}/${ESP_EFI_DIRECTORY}"
 grub_make_image 'x86_64-efi' "${memdisk}" "${root}/${ESP_EFI_FILE}"

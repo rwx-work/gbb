@@ -37,19 +37,22 @@ GRUB_IMAGE_FILE="${GRUB_IMAGE_DIRECTORY}/grub.cfg"
 function grub_make_memdisk {
 local file="${1}"
 local esp_uuid="${2}"
+local grub_root="${3}"
+local grub_env="${4}"
 local root
 root="$(util_make_temporary_directory)"
 
 util_make_directory "${root}/${GRUB_IMAGE_DIRECTORY}"
 
 bash_write "${root}/${GRUB_IMAGE_FILE}" "\
-ESP_UUID='${esp_uuid}'
+esp_uuid='${esp_uuid}'
+env_path='${grub_env}'
+
 search \\
---fs-uuid \"\${ESP_UUID}\" \\
+--fs-uuid \"\${esp_uuid}\" \\
 --set 'root'
-prefix='/${ESP_GRUB_ROOT}'
+prefix='${grub_root}'
 pager=1
-export ESP_UUID
 normal
 "
 

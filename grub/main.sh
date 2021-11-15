@@ -1,5 +1,5 @@
 function main {
 info
 scan
-cmd
+menuentry 'graphics' { menu 'gfx' }
 }

@@ -1,3 +1,3 @@
 function info {
-menuentry 'info' { clear }
+menuentry "command | ${grub_cpu}-${grub_platform} ← ${cmdpath}" { menu 'cmd' }
 }

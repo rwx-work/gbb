@@ -10,7 +10,7 @@ GRUB_IMAGE_MODULES=(
 #
 'at_keyboard' 'keylayouts' 'keystatus' 'read'
 'halt' 'reboot'
-'all_video' 'gfxterm_background' 'jpeg' 'png' 'tga'
+'all_video' 'videoinfo' 'gfxterm_background' 'jpeg' 'png' 'tga'
 #
 'date' 'echo' 'eval' 'help' 'sleep' 'test' 'true'
 'cpuid' 'lspci' 'videoinfo'

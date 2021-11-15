@@ -93,6 +93,22 @@ touch \
 "${file}"
 }
 
+# fdisk
+
+function util_fdisk {
+local path="${1}"
+shift
+local argument
+{
+for argument in "${@}"; do
+    echo "${argument}"
+done
+echo 'w'
+} \
+| fdisk "${path}" \
+> "${UTIL_NULL_DEVICE}"
+}
+
 # mount
 
 function util_attach_loop {

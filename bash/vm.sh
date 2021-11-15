@@ -13,27 +13,11 @@ local root
 file="$(util_make_temporary_file)"
 util_dump_dummy "${file}" "${VM_SIZE}"
 
-echo -n "\
-g
-n
-
-
-+${VM_BIOS}M
-t
-4
-n
-
-
-+${VM_ESP}M
-t
-
-uefi
-n
-
-
-
-w
-" | fdisk "${file}" > "${UTIL_NULL_DEVICE}"
+util_fdisk \
+"${file}" 'g' \
+'n' '' '' "+${VM_BIOS}M" 't' '4' \
+'n' '' '' "+${VM_ESP}M" 't' '' 'uefi' \
+'n' '' '' ''
 
 device="$(util_attach_loop "${file}")"
 # ESP

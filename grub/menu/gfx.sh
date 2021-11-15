@@ -1,5 +1,5 @@
 menuentry 'list' {
 videoinfo
-echo -n 'Press Enter:'
+echo -n 'Press Enter: '
 read
 }

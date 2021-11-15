@@ -8,6 +8,11 @@ else
 fi
 }
 
+function menu_pause {
+echo -n 'Press Enter: '
+read
+}
+
 function menu_split {
 menuentry '' { clear }
 }

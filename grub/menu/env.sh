@@ -1,12 +1,15 @@
 # TODO implement
 menuentry "show file" {
-clear
+# TODO variable
+cat '/grub.env'
+menu_pause
 }
 # TODO pause
 menuentry "show variables" {
 set
+menu_pause
 }
 # TODO implement
-menuentry "set defaults" {
-clear
+menuentry "reset defaults" {
+env_set
 }

@@ -15,7 +15,7 @@ util_dump_dummy "${file}" "${VM_SIZE}"
 
 util_fdisk \
 "${file}" 'g' \
-'n' '' '' "+${VM_BIOS}M" 't' '4' \
+'n' '' '' "+${VM_BIOS}M" 't' 4 \
 'n' '' '' "+${VM_ESP}M" 't' '' 'uefi' \
 'n' '' '' ''
 

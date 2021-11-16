@@ -4,7 +4,7 @@ shellcheck \
 "${@}"
 }
 
-function bash_write {
+function bash_write_file {
 local file="${1}"
 local content="${2}"
 log_file_write "${file}" "${content}"

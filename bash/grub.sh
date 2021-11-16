@@ -48,7 +48,7 @@ root="$(util_make_temporary_directory)"
 
 util_make_directory "${root}/${GRUB_IMAGE_DIRECTORY}"
 
-bash_write "${root}/${GRUB_IMAGE_FILE}" "\
+bash_write_file "${root}/${GRUB_IMAGE_FILE}" "\
 esp_uuid='${esp_uuid}'
 env_path='${grub_env}'
 
@@ -87,9 +87,10 @@ grub-mkimage \
 "${modules[@]}"
 }
 
+# TODO build string
 function grub_make_env {
 local file="${1}"
-bash_write "${file}" "\
+bash_write_file "${file}" "\
 # GRUB Environment Block
 #############################################################################\
 #############################################################################\

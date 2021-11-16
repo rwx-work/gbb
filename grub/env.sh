@@ -8,10 +8,20 @@ function env {
 local action="${1}"
 setparams \
 'gfxmode' 'terminal_output' 'time_out'
-if [ "${action}" == 'export' ]; then echo ; fi
-if [ "${action}" == 'load' ]; then echo ; fi
-if [ "${action}" == 'save' ]; then echo ; fi
-if [ "${action}" == 'unset' ]; then echo ; fi
+if [ "${action}" == 'export' ]; then
+    # TODO implement
+    echo
+fi
+if [ "${action}" == 'load' ]; then
+    load_env --file "${env_path}" "${@}"
+fi
+if [ "${action}" == 'save' ]; then
+    save_env --file "${env_path}" "${@}"
+fi
+if [ "${action}" == 'unset' ]; then
+    # TODO implement
+    echo
+fi
 }
 
 function env_apply {

@@ -95,7 +95,7 @@ touch \
 
 # fdisk
 
-function util_fdisk {
+function util_partition {
 local path="${1}"
 shift
 printf '%s\n' "${@}" 'w' \

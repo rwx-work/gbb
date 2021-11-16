@@ -1,3 +1,6 @@
+# grub-mkimage
+# tar
+
 GRUB_IMAGE_MODULES=(
 'regexp'
 'memdisk' 'tar'
@@ -25,6 +28,7 @@ GRUB_IMAGE_BIOS_MODULES=(
 # TODO explain why constant
 GRUB_IMAGE_COMPRESSION='xz'
 
+GRUB_FONT='/usr/share/grub/unicode.pf2'
 GRUB_ROOT='/usr/lib/grub'
 GRUB_BIOS="${GRUB_ROOT}/i386-pc"
 export GRUB_BIOS_BOOT="${GRUB_BIOS}/boot.img"

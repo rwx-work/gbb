@@ -34,6 +34,8 @@ GRUB_BIOS="${GRUB_ROOT}/i386-pc"
 export GRUB_BIOS_BOOT="${GRUB_BIOS}/boot.img"
 export GRUB_BIOS_SETUP="${GRUB_BIOS}/grub-bios-setup"
 
+GRUB_ENV_HEADER='# GRUB Environment Block'
+
 GRUB_IMAGE_ROOT='boot'
 GRUB_IMAGE_DIRECTORY="${GRUB_IMAGE_ROOT}/grub"
 GRUB_IMAGE_FILE="${GRUB_IMAGE_DIRECTORY}/grub.cfg"
@@ -91,7 +93,7 @@ grub-mkimage \
 function grub_make_env {
 local file="${1}"
 bash_write_file "${file}" "\
-# GRUB Environment Block
+${GRUB_ENV_HEADER}
 #############################################################################\
 #############################################################################\
 #############################################################################\

@@ -28,11 +28,11 @@ GRUB_IMAGE_BIOS_MODULES=(
 # TODO explain why constant
 GRUB_IMAGE_COMPRESSION='xz'
 
-GRUB_FONT='/usr/share/grub/unicode.pf2'
 GRUB_ROOT='/usr/lib/grub'
 GRUB_BIOS="${GRUB_ROOT}/i386-pc"
 export GRUB_BIOS_BOOT="${GRUB_BIOS}/boot.img"
 export GRUB_BIOS_SETUP="${GRUB_BIOS}/grub-bios-setup"
+export GRUB_FONT='/usr/share/grub/unicode.pf2'
 
 GRUB_ENV_HEADER='# GRUB Environment Block
 '
@@ -95,7 +95,7 @@ function grub_make_env {
 local file="${1}"
 local length
 local padding
-length=$((${GRUB_ENV_SIZE}-${#GRUB_ENV_HEADER}))
+length=$((GRUB_ENV_SIZE-${#GRUB_ENV_HEADER}))
 padding="$(printf "%${length}s" | tr ' ' '#')"
 bash_write_file "${file}" "${GRUB_ENV_HEADER}${padding}"
 }

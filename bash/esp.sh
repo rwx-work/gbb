@@ -30,7 +30,7 @@ util_copy "${GRUB_BIOS_BOOT}" "${root}/${ESP_BIOS_ROOT}"
 grub_make_image 'i386-pc' "${memdisk}" "${root}/${ESP_BIOS_IMAGE}"
 util_copy "${GRUB_BIOS_SETUP}" "${root}/${ESP_BIOS_SETUP}"
 # grub
-util_copy "${MAIN_BASH_ROOT}/${MAIN_GRUB_ROOT}" "${root}/${ESP_GRUB_ROOT}"
+util_copy "${PROJECT_ROOT}/${MAIN_GRUB_ROOT}" "${root}/${ESP_GRUB_ROOT}"
 # fonts
 util_make_directory "${root}/${ESP_GRUB_FONTS}"
 util_copy "${GRUB_FONT}" "${root}/${ESP_GRUB_FONTS}"

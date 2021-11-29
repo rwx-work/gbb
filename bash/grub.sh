@@ -1,5 +1,4 @@
-# grub-mkimage
-# tar
+RUN_BINARIES+=('grub-mkimage' 'tar')
 
 GRUB_IMAGE_MODULES=(
 'regexp'

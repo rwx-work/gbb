@@ -1,3 +1,5 @@
+RUN_BINARIES+=('awk' 'grep' 'realpath')
+
 ARG_ACTION_PREFIX='arg_action_'
 
 # actions

@@ -1,6 +1,8 @@
+DEV_BINARIES+=('qemu-system-x86_64')
+
 VM_BIOS=1
-VM_ESP=16
-VM_SIZE=128
+VM_ESP=128
+VM_SIZE=256
 
 # TODO check user, qemu
 function vm_virtualize {
@@ -38,7 +40,6 @@ util_mount "${partition}" "${root}"
 directory="${root}/fs/dummy"
 util_make_directory "${directory}"
 util_copy \
---dereference \
 '/vmlinuz' '/initrd.img' \
 "${directory}"
 # TODO constant
